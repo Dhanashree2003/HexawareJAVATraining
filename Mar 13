@@ -1,0 +1,48 @@
+MAR 31
+
+Topics taught
+-> Aggregate Func
+-> Date Func
+-> Joins Func
+-> Number Func
+-> String Func
+-> joints
+    Inner Joint
+    Outer Joint
+    Left Joint
+    Right Joint
+    Cross Joint
+    Self Joint
+-> Normalization
+    1NF - Atomic Values
+    2NF - Functional dependency on the whole part
+    3NF - Transitive Dependency
+
+1)Find the last occurrence of a given character in a string (e.g., 'keerthi', find last occurrence of 'e')
+
+select length('keerthi') - instr(reverse('keerthi'), 'e') + 1 as last_occurrence;
+
+2)Count the number of occurrences of 'i' in the word 'mississippi'
+
+select length('mississippi') - length(replace('mississippi', 'i', '')) as count_of_i;
+
+3)Display all names from the emp table in sentence case
+
+select concat(upper(left(name,1)), lower(substring(name,2))) as sentence_case_name from emp;
+
+4)Display the first day of the current month
+
+select date_format(current_date, '%Y-%m-01') as first_day_of_month;
+
+5)Add 5 years, 3 months, and 10 days to today’s date
+
+select date_add(current_date, interval 5 year) + interval 3 month + interval 10 day as future_date;
+
+6)Display all Fridays of the current month
+
+select date_add(last_day(current_date), interval -(day(last_day(current_date)))+1 day) + interval (7 - weekday(date_add(last_day(current_date), interval -(day(last_day(current_date)))+1 day))) day + interval (7 * t.n) day as fridays 
+from (select 0 as n union all select 1 union all select 2 union all select 3 union all select 4 union all select 5) t 
+where date_add(last_day(current_date), interval -(day(last_day(current_date)))+1 day) + interval (7 - weekday(date_add(last_day(current_date), interval -(day(last_day(current_date)))+1 day))) day + interval (7 * t.n) day <= last_day(current_date);
+
+
+
